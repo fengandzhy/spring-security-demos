@@ -4,4 +4,7 @@
   <artifactId>spring-security-demo</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
+  <modules>
+  	<module>spring-security-helloworld</module>
+  </modules>
 </project>
