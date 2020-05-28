@@ -1,23 +1,24 @@
 package org.zhouhy.springsecurity.config;
 
 
-
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.zhouhy.springsecurity.security.AuthenticationEntryPointImpl;
 import org.zhouhy.springsecurity.security.AuthenticationFailureHandlerImpl;
 import org.zhouhy.springsecurity.security.AuthenticationSuccessHandlerImpl;
 import org.zhouhy.springsecurity.security.LogoutSuccessHandlerImpl;
 
-import java.io.PrintWriter;
+
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -28,27 +29,44 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    /**
-     * 过滤一些静态元素
-     * */
+
     @Override
     public void configure(WebSecurity webSecurity){
         webSecurity.ignoring().antMatchers("/js/**","/css/**","/images/**");
     }
 
+    @Bean
+    protected UserDetailsService userDetailsService(){
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        manager.createUser(User.withUsername("sam").password("123").roles("admin").build());
+        manager.createUser(User.withUsername("frank").password("123").roles("user").build());
+        return manager;
+    }
+
     /**
-     * successHandler 方法的参数是一个 AuthenticationSuccessHandler 对象，
-     * 这个对象中我们要实现的方法是 onAuthenticationSuccess
-     *
-     *
+     * 这里是角色继承
+     * */
+    @Bean
+    RoleHierarchy roleHierarchy() {
+        RoleHierarchyImpl hierarchy = new RoleHierarchyImpl();
+        hierarchy.setHierarchy("ROLE_admin > ROLE_user");
+        return hierarchy;
+    }
+
+
+    /**
+     * .anyRequest().authenticated() 这个一定要放在两个antMatchers之后, 表示除了前面拦截规则之外，剩下的请求要如何处理。
+     * .antMatchers("/admmin/**").hasRole("admin") 表示在admin这个路径下的所有请求都要admin权限才能访问
+     * 如果不设置.exceptionHandling().authenticationEntryPoint 他会默认返回一个登录页面
      * */
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests()
+                .antMatchers("/admin/**").hasRole("admin")
+                .antMatchers("/user/**").hasRole("user")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login.html")
                 .loginProcessingUrl("/doLogin")
                 .usernameParameter("name")
                 .passwordParameter("pwd")
@@ -65,14 +83,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 .authenticationEntryPoint(new AuthenticationEntryPointImpl());
     }
-
-    /**
-     * 这段配置会覆盖掉配置文件里的配置
-     * */
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("Sam").password("123").roles("admin");
-    }
-
-
 }

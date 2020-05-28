@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * .loginProcessingUrl("/doLogin") 这个就是登录接口
      * 另外表单里默认的参数是username和password <input type="text" name="username" id="name"> <input type="password" name="password" id="pass">
      * 但是配了.usernameParameter("name") 和 .passwordParameter("pwd") 那么表单的参数也会改变
-     *
+     * .permitAll() 表示第一个and之后到第二个and之前的东西不要拦截,也就是说login.html 这个请求不要拦截
      *
      * */
     @Override
