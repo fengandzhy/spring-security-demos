@@ -1,6 +1,7 @@
 package org.zhouhy.springsecurity.config;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
@@ -18,10 +19,12 @@ import org.zhouhy.springsecurity.security.AuthenticationFailureHandlerImpl;
 import org.zhouhy.springsecurity.security.AuthenticationSuccessHandlerImpl;
 import org.zhouhy.springsecurity.security.LogoutSuccessHandlerImpl;
 
+import javax.sql.DataSource;
 
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
 
     @Bean
     PasswordEncoder passwordEncoder(){
