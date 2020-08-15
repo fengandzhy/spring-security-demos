@@ -47,8 +47,17 @@
                          logout-success-url="/login.jsp"/>
         <!--去掉csrf拦截的过滤器-->
         <security:csrf disabled="false"/>
+
+        <!--省略其余配置-->
+        <!--开启remember me过滤器，设置token存储时间为60秒-->
+        <!--<security:remember-me token-validity-seconds="60"/>-->
+        <security:remember-me data-source-ref="dataSource"
+                              token-validity-seconds="60"
+                              remember-me-parameter="remember-me"/>
     </security:http>
     <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+
+
 
     <!--设置Spring Security认证用户信息的来源-->
     <!--

@@ -3,6 +3,7 @@ package org.zhouhy.springsecurity.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -73,9 +74,18 @@ public class UserServiceImpl implements UserService {
      * 4. 另外要在spring-security.xml 做出一些配置来<security:authentication-provider user-service-ref="userServiceImpl">
      * 5. 如果要加密首先在在spring-security.xml中引入BCryptPasswordEncoder 并在security:authentication-provider 做出修改
      * 6. 在创建和修改user的地方也要做相应的修改
+     *
      * 7. 关于这个csrf的这个，首先在spring-security.xml开启这个csrf检查
      * 8. 再相关页面先引入相应的标签<%@taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
      * 9. 在相应的form表单里加入<security:csrfInput/>
+     *
+     * 10.关于remember-me的首先页面中要有一个复选框checkbox 或者单选框radio 名字必须是remember-me value必须是true,yes,on,1
+     * 11.在spring-security.xml中加入有<security:remember-me token-validity-seconds="60"/> 它就会往页面的cookie中加入一个token
+     * 12.如果要要更新token到数据库则这个表名和字段名都必须是特定的,就是本例中的persistent_logins
+     * 13.在spring-security.xml 中加入<security:remember-me data-source-ref="dataSource" token-validity-seconds="60" remember-me-parameter="remember-me"/>
+     *
+     * 14.关于在页面中显示登录用户名可以有两种方法其中一种是<security:authentication property="name" /> 相当于 SecurityContextHolder.getContext().getAuthentication().getName()
+     * 15.还有一种是<security:authentication property="principal.username" /> 相当于(SysUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -103,6 +113,8 @@ public class UserServiceImpl implements UserService {
                     true,
                     true,
                     authorities);
+            System.out.print(SecurityContextHolder.getContext().getAuthentication().getName());
+            System.out.print(((SysUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
             return userDetails;
         } catch (Exception e) {
             e.printStackTrace();
