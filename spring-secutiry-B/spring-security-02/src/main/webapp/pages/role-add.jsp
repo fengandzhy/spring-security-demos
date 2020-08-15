@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
+<!DOCTYPE html>
 <html>
 <head>
 <!-- 页面meta -->
@@ -90,7 +91,8 @@
 			<!-- 内容头部 /-->
 
 			<form action="${pageContext.request.contextPath}/role/save.do" method="post">
-				<!-- 正文区域 -->
+                <security:csrfInput/>
+                <!-- 正文区域 -->
 				<section class="content"> <!--产品信息-->
 
 				<div class="panel panel-default">
