@@ -13,6 +13,17 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>5.1.5.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>5.1.5.RELEASE</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
             <version>5.1.6.RELEASE</version>
@@ -26,6 +37,7 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>5.1.6.RELEASE</version>
+
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -70,5 +82,6 @@
             <version>1.0</version>
         </dependency>
     </dependencies>
+
 
 </project>

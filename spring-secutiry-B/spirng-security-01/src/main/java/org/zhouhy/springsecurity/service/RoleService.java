@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface RoleService {
 
-    public void save(SysRole role);
+    void save(SysRole role);
 
-    public List<SysRole> findAll();
+    List<SysRole> findAll();
 
 }
