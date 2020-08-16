@@ -6,7 +6,7 @@ spring:
       prefix: /pages/
       suffix: .jsp
   datasource:
-      url: jdbc:mysql://localhost:3306/spring-security-b?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+      url: jdbc:mysql://localhost:3306/spring-secutiry-b?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
       password: root
       username: root
       driver-class-name: com.mysql.cj.jdbc.Driver

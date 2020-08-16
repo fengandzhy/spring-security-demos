@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/product")
-public class ProductController {
+@RequestMapping("/order")
+public class OrderController {
 
-    @Secured({"ROLE_PRODUCT","ROLE_ADMIN"})
+    @Secured({"ROLE_ORDER","ROLE_ADMIN"})
     @RequestMapping(value = "/findAll",method =RequestMethod.GET)
     public String findAll(){
-        return "product-list";
+        return "order-list";
     }
 }
