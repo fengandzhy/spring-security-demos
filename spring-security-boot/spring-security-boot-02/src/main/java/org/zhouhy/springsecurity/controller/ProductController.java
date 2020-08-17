@@ -12,6 +12,7 @@ public class ProductController {
     @Secured({"ROLE_PRODUCT","ROLE_ADMIN"})
     @RequestMapping(value = "/findAll",method =RequestMethod.GET)
     public String findAll(){
+        System.out.println("order");
         return "product-list";
     }
 }
