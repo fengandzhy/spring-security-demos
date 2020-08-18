@@ -11,8 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.zhouhy.springsecurity.filter.TokenLoginFilter;
+
 import org.zhouhy.springsecurity.filter.TokenVerifyFilter;
 
 
@@ -22,19 +21,11 @@ import org.zhouhy.springsecurity.filter.TokenVerifyFilter;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserDetailsService userService;
-
-    @Autowired
     private RsaKeyProperties prop;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
-    }
-
-    //认证用户来源
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
     }
 
     //SpringSecurity配置信息
@@ -45,8 +36,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new TokenVerifyFilter(authenticationManager(), prop))
-                .addFilter(new TokenLoginFilter(authenticationManager(), prop))
-                //.addFilterBefore(new TokenLoginFilter("/doLogin",authenticationManager(), prop),UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
     }

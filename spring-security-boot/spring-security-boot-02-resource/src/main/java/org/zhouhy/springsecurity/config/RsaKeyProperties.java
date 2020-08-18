@@ -16,12 +16,12 @@ public class RsaKeyProperties {
     private String pubKeyPath;
     private String priKeyPath;
     private PublicKey publicKey;
-    private PrivateKey privateKey;
+
 
     @PostConstruct
     public void loadKey() throws Exception {
         publicKey = RsaUtils.getPublicKey(pubKeyPath);
-        privateKey = RsaUtils.getPrivateKey(priKeyPath);
+
     }
 
 }

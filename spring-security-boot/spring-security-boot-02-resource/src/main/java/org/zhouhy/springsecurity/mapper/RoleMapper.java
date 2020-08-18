@@ -6,7 +6,7 @@ import org.zhouhy.springsecurity.domain.SysRole;
 
 import java.util.List;
 
-public interface RoleMapper{
+public interface RoleMapper {
 
     @Select("SELECT r.id, r.role_name roleName, r.role_desc roleDesc " +
             "FROM sys_role r, sys_user_role ur " +

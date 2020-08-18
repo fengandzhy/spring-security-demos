@@ -5,6 +5,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
+import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.zhouhy.springsecurity.config.RsaKeyProperties;
 
@@ -16,12 +17,17 @@ import javax.servlet.FilterChain;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * 地址是/login 请求方式是POST才会被这个TokenLoginFilter截取
+ *
+ * */
 public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
 
     private AuthenticationManager authenticationManager;
@@ -41,7 +47,7 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
         try {
             SysUser user = new ObjectMapper().readValue(req.getInputStream(), SysUser.class);
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword()));
-        } catch (IOException e) {
+        } catch (Exception e) {
             try {
                 //如果认证失败，提供自定义json格式异常
                 res.setContentType("application/json;charset=utf-8");
@@ -73,7 +79,7 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
         //json web token构建
         String token = JwtUtils.generateTokenExpireInMinutes(user, prop.getPrivateKey(), 24*60);
         //返回token
-        res.addHeader("Authorization", "Bearer " + token);
+        res.addHeader("Authorization1", "Bearer " + token);
         try {
             //登录成功時，返回json格式进行提示
             res.setContentType("application/json;charset=utf-8");

@@ -9,7 +9,7 @@ import org.zhouhy.springsecurity.domain.SysUser;
 
 import java.util.List;
 
-public interface UserMapper{
+public interface UserMapper {
 
     @Select("select * from sys_user where username = #{username}")
     @Results({
