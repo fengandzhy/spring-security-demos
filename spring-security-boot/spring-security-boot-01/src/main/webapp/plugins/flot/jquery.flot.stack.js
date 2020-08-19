@@ -11,11 +11,11 @@ and end of the chart. Note that stacking a mix of positive and negative values
 in most instances doesn't make sense (so it looks weird).
 
 Two or more series are stacked when their "stack" attribute is set to the same
-key (which can be any number or string or just "true"). To specify the default
+config (which can be any number or string or just "true"). To specify the default
 stack, you can set the stack option like this:
 
 	series: {
-		stack: null/false, true, or a key (number/string)
+		stack: null/false, true, or a config (number/string)
 	}
 
 You can also specify it for a single series, like this:

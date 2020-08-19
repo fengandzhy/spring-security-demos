@@ -171,7 +171,7 @@ KeyTable = function ( oInit )
 
 	/*
 	 * Variable: _bKeyCapture
-	 * Purpose:  Flag for should KeyTable capture key events or not
+	 * Purpose:  Flag for should KeyTable capture config events or not
 	 * Scope:    KeyTable - private
 	 */
 	var _bKeyCapture = false;
@@ -482,7 +482,7 @@ KeyTable = function ( oInit )
 			/* Re-draw the table */
 			_oDatatable.oApi._fnDraw( oSettings );
 
-			/* Restore the key capture */
+			/* Restore the config capture */
 			_bKeyCapture = bKeyCaptureCache;
 		}
 
@@ -636,9 +636,9 @@ KeyTable = function ( oInit )
 
 	/*
 	 * Function: _fnKey
-	 * Purpose:  Deal with a key events, be it moving the focus or return etc.
+	 * Purpose:  Deal with a config events, be it moving the focus or return etc.
 	 * Returns:  bool: - allow browser default action
-	 * Inputs:   event:e - key event
+	 * Inputs:   event:e - config event
 	 */
 	function _fnKey ( e )
 	{
@@ -648,7 +648,7 @@ KeyTable = function ( oInit )
 			return true;
 		}
 
-		/* If a modifier key is pressed (exapct shift), ignore the event */
+		/* If a modifier config is pressed (exapct shift), ignore the event */
 		if ( e.metaKey || e.altKey || e.ctrlKey )
 		{
 			return true;
@@ -682,7 +682,7 @@ KeyTable = function ( oInit )
 			iTableHeight = _nBody.getElementsByTagName('tr').length;
 		}
 
-		/* Capture shift+tab to match the left arrow key */
+		/* Capture shift+tab to match the left arrow config */
 		var iKey = (e.keyCode == 9 && e.shiftKey) ? -1 : e.keyCode;
 
 		switch( iKey )
@@ -825,7 +825,7 @@ KeyTable = function ( oInit )
 
 	/*
 	 * Function: _fnCaptureKeys
-	 * Purpose:  Start capturing key events for this table
+	 * Purpose:  Start capturing config events for this table
 	 * Returns:  -
 	 * Inputs:   -
 	 */
@@ -840,7 +840,7 @@ KeyTable = function ( oInit )
 
 	/*
 	 * Function: _fnReleaseKeys
-	 * Purpose:  Stop capturing key events for this table
+	 * Purpose:  Stop capturing config events for this table
 	 * Returns:  -
 	 * Inputs:   -
 	 */

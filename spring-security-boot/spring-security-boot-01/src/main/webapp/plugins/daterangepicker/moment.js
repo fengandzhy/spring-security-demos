@@ -125,7 +125,7 @@
         return input === void 0;
     }
 
-    // Plugins that add properties should also add the key here (null value),
+    // Plugins that add properties should also add the config here (null value),
     // so we can properly clone ourselves.
     var momentProperties = utils_hooks__hooks.momentProperties = [];
 
@@ -285,7 +285,7 @@
 
     // This function will load locale and then set the global locale.  If
     // no arguments are passed in, it will simply return the current global
-    // locale key.
+    // locale config.
     function locale_locales__getSetGlobalLocale (key, values) {
         var data;
         if (key) {
@@ -2158,7 +2158,7 @@
         return this.to(local__createLocal(), withoutSuffix);
     }
 
-    // If passed a locale key, it will set the locale for this
+    // If passed a locale config, it will set the locale for this
     // instance.  Otherwise, it will return the locale configuration
     // variables for this instance.
     function locale (key) {

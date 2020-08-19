@@ -5813,7 +5813,7 @@ wysihtml5.dom.observe = function(element, eventNames, handler) {
  *
  * @param {Element|String} elementOrHtml HTML String to be sanitized OR element whose content should be sanitized
  * @param {Object} [rules] List of rules for rewriting the HTML, if there's no rule for an element it will
- *    be converted to a "span". Each rule is a key/value pair where key is the tag to convert, and value the
+ *    be converted to a "span". Each rule is a config/value pair where config is the tag to convert, and value the
  *    desired substitution.
  * @param {Object} context Document object in which to parse the html, needed to sandbox the parsing
  *
@@ -12955,7 +12955,7 @@ wysihtml5.views.View = Base.extend(
         event.preventDefault();
       }
       if (keyCode === 8) {
-        // delete key
+        // delete config
         handleDeleteKeyPress(event, that.selection, element, that);
       } else if (that.config.handleTabKey && keyCode === 9) {
         event.preventDefault();
@@ -13236,7 +13236,7 @@ wysihtml5.views.View = Base.extend(
     autoLink:             true,
     // Includes table editing events and cell selection tracking
     handleTables:         true,
-    // Tab key inserts tab into text as default behaviour. It can be disabled to regain keyboard navigation
+    // Tab config inserts tab into text as default behaviour. It can be disabled to regain keyboard navigation
     handleTabKey:         true,
     // Object which includes parser rules to apply when html gets cleaned
     // See parser_rules/*.js for examples
@@ -13531,7 +13531,7 @@ wysihtml5.views.View = Base.extend(
     },
 
     /**
-     * Grabs all fields in the dialog and puts them in key=>value style in an object which
+     * Grabs all fields in the dialog and puts them in config=>value style in an object which
      * then gets returned
      */
     _serialize: function() {

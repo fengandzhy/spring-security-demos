@@ -1408,7 +1408,7 @@ S2.define('select2/selection/base',[
     var self = this;
 
     // This needs to be delayed as the active element is the body when the tab
-    // key is pressed, possibly along with others.
+    // config is pressed, possibly along with others.
     window.setTimeout(function () {
       // Don't trigger `blur` if the focus is still in the selection
       if (
@@ -3456,11 +3456,11 @@ S2.define('select2/data/ajax',[
         var results = self.processResults(data, params);
 
         if (self.options.get('debug') && window.console && console.error) {
-          // Check to make sure that the response included a `results` key.
+          // Check to make sure that the response included a `results` config.
           if (!results || !results.results || !$.isArray(results.results)) {
             console.error(
               'Select2: The AJAX results did not return an array in the ' +
-              '`results` key of the response.'
+              '`results` config of the response.'
             );
           }
         }
@@ -4447,7 +4447,7 @@ S2.define('select2/dropdown/closeOnSelect',[
   CloseOnSelect.prototype._selectTriggered = function (_, evt) {
     var originalEvent = evt.originalEvent;
 
-    // Don't close if the control key is being held
+    // Don't close if the control config is being held
     if (originalEvent && originalEvent.ctrlKey) {
       return;
     }

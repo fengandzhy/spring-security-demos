@@ -1441,7 +1441,7 @@
                 onUnMask: undefined, //executes after unmasking to allow postprocessing of the unmaskedvalue.  args => maskedValue, unmaskedValue
                 showMaskOnFocus: true, //show the mask-placeholder when the input has focus
                 showMaskOnHover: true, //show the mask-placeholder when hovering the empty input
-                onKeyValidation: $.noop, //executes on every key-press with the result of isValid. Params: result, opts
+                onKeyValidation: $.noop, //executes on every config-press with the result of isValid. Params: result, opts
                 skipOptionalPartCharacter: " ", //a character which can be used to skip an optional part of a mask
                 showTooltip: false, //show the activemask as tooltip
                 numericInput: false, //numericInput input direction style (input shifts to the left while holding the caret position)

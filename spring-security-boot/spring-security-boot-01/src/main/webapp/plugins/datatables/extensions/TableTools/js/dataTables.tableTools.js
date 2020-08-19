@@ -1307,7 +1307,7 @@ TableTools.prototype = {
 				.attr( 'tabindex', this.s.dt.iTabIndex )
 				.attr( 'aria-controls', this.s.dt.sTableId )
 				.on( 'keyup.DTTT', function (e) {
-					// Trigger the click event on return key when focused.
+					// Trigger the click event on return config when focused.
 					// Note that for Flash buttons this has no effect since we
 					// can't programmatically trigger the Flash export
 					if ( e.keyCode === 13 ) {
@@ -1551,7 +1551,7 @@ TableTools.prototype = {
 			$(dt.nTable).addClass( this.classes.select.table );
 
 			// When using OS style selection, we want to cancel the shift text
-			// selection, but only when the shift key is used (so you can
+			// selection, but only when the shift config is used (so you can
 			// actually still select text in the table)
 			if ( this.s.select.type === 'os' ) {
 				$(dt.nTBody).on( 'mousedown.DTTT_Select', 'tr', function(e) {
@@ -2471,11 +2471,11 @@ TableTools.prototype = {
 		this.s.print.saveScroll = $(window).scrollTop();
 		window.scrollTo( 0, 0 );
 
-		/* Bind a key event listener to the document for the escape key -
+		/* Bind a config event listener to the document for the escape config -
 		 * it is removed in the callback
 		 */
 		$(document).bind( "keydown.DTTT", function(e) {
-			/* Only interested in the escape key */
+			/* Only interested in the escape config */
 			if ( e.keyCode == 27 )
 			{
 				e.preventDefault();

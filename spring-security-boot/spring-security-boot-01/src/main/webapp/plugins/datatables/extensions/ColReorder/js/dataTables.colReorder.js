@@ -25,8 +25,8 @@
 
 
 /**
- * Switch the key value pairing of an index array to be value key (i.e. the old value is now the
- * key). For example consider [ 2, 0, 1 ] this would be returned as [ 1, 2, 0 ].
+ * Switch the config value pairing of an index array to be value config (i.e. the old value is now the
+ * config). For example consider [ 2, 0, 1 ] this would be returned as [ 1, 2, 0 ].
  *  @method  fnInvertKeyValues
  *  @param   array aIn Array to switch around
  *  @returns array

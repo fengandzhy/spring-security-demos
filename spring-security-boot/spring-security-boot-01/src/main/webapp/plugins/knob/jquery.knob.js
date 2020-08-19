@@ -367,7 +367,7 @@
             k.c.d
                 .bind("mousemove.k", mouseMove)
                 .bind(
-                    // Escape key cancel current change
+                    // Escape config cancel current change
                     "keyup.k",
                     function (e) {
                         if (e.keyCode === 27) {

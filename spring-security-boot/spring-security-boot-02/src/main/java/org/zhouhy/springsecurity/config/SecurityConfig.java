@@ -11,9 +11,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.zhouhy.springsecurity.filter.TokenLoginFilter;
 import org.zhouhy.springsecurity.filter.TokenVerifyFilter;
+import org.zhouhy.springsecurity.key.RsaPubKeyProperties;
+
+import javax.annotation.Resource;
 
 
 @Configuration
@@ -25,7 +27,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userService;
 
     @Autowired
-    private RsaKeyProperties prop;
+    private RsaPriKeyProperties rsaKeyProperties;
+
+    @Resource
+    private RsaPubKeyProperties pubKeyProperties;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
@@ -44,8 +49,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").hasAnyRole("USER","ADMIN")
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new TokenVerifyFilter(authenticationManager(), prop))
-                .addFilter(new TokenLoginFilter(authenticationManager(), prop))
+                .addFilter(new TokenVerifyFilter(authenticationManager(), pubKeyProperties))
+                .addFilter(new TokenLoginFilter(authenticationManager(), rsaKeyProperties))
                 //.addFilterBefore(new TokenLoginFilter("/doLogin",authenticationManager(), prop),UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 

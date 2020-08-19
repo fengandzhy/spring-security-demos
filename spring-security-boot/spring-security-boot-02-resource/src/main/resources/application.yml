@@ -14,5 +14,5 @@ logging:
   level:
     org.zhouhy.springsecurity: debug
 heima:
-  key:
+  config:
     pubKeyPath: D:\\auth_key\\rsa_key.pub

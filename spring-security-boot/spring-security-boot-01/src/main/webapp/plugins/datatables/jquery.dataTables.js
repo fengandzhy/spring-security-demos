@@ -1440,7 +1440,7 @@
 	
 	 /**
 	 * Take an array of integers (index array) and remove a target integer (value - not
-	 * the key!)
+	 * the config!)
 	 *  @param {array} a Index array to target
 	 *  @param {int} iTarget value to find
 	 *  @memberof DataTable#oApi
@@ -4569,7 +4569,7 @@
 		/* No sorting required if server-side or no sorting array */
 		if ( _fnDataSource( oSettings ) != 'ssp' && aSort.length !== 0 )
 		{
-			// Create a value - key array of the current row positions such that we can use their
+			// Create a value - config array of the current row positions such that we can use their
 			// current position during the sort, if values match, in order to perform stable sorting
 			for ( i=0, iLen=displayMaster.length ; i<iLen ; i++ ) {
 				aiOrig[ displayMaster[i] ] = i;
@@ -4982,7 +4982,7 @@
 		// Store the saved state so it might be accessed at any time
 		settings.oLoadedState = $.extend( true, {}, state );
 	
-		// Restore key features - todo - for 1.11 this needs to be done by
+		// Restore config features - todo - for 1.11 this needs to be done by
 		// subscribed events
 		if ( state.start !== undefined ) {
 			settings._iDisplayStart    = state.start;
@@ -5163,7 +5163,7 @@
 	
 	
 	/**
-	 * Bind an event handers to allow a click or return key to activate the callback.
+	 * Bind an event handers to allow a click or return config to activate the callback.
 	 * This is good for accessibility since a return on the keyboard will have the
 	 * same effect as a click, if the element has focus.
 	 *  @param {element} n Element to bind the action to
@@ -10583,7 +10583,7 @@
 		 *  @type function
 		 *  @member
 		 *  @param {string} source HTTP source to obtain the data from (`ajax`)
-		 *  @param {array} data A key/value pair object containing the data to send
+		 *  @param {array} data A config/value pair object containing the data to send
 		 *    to the server
 		 *  @param {function} callback to be called on completion of the data get
 		 *    process that will draw the data on the page.
@@ -10907,7 +10907,7 @@
 		/**
 		 * By default DataTables allows keyboard navigation of the table (sorting, paging,
 		 * and filtering) by adding a `tabindex` attribute to the required elements. This
-		 * allows you to tab through the controls and press the enter key to activate them.
+		 * allows you to tab through the controls and press the enter config to activate them.
 		 * The tabindex is default 0, meaning that the tab follows the flow of the document.
 		 * You can overrule this using this parameter if you wish. Use a value of -1 to
 		 * disable built-in keyboard navigation.

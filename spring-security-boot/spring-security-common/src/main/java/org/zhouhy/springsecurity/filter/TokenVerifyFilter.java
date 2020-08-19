@@ -5,7 +5,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.zhouhy.springsecurity.config.RsaKeyProperties;
+import org.zhouhy.springsecurity.key.RsaPubKeyProperties;
 import org.zhouhy.springsecurity.domain.Payload;
 import org.zhouhy.springsecurity.domain.SysUser;
 import org.zhouhy.springsecurity.utils.JwtUtils;
@@ -23,9 +23,9 @@ import java.util.Map;
  * */
 public class TokenVerifyFilter extends BasicAuthenticationFilter {
 
-    private RsaKeyProperties prop;
+    private RsaPubKeyProperties prop;
 
-    public TokenVerifyFilter(AuthenticationManager authenticationManager, RsaKeyProperties prop) {
+    public TokenVerifyFilter(AuthenticationManager authenticationManager, RsaPubKeyProperties prop) {
         super(authenticationManager);
         this.prop = prop;
     }

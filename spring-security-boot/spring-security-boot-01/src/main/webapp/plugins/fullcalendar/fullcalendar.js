@@ -542,7 +542,7 @@ function getScrollbarWidths(container) {
 }
 
 
-// Returns a boolean whether this was a left mouse click and no ctrl key (which means right click on Mac)
+// Returns a boolean whether this was a left mouse click and no ctrl config (which means right click on Mac)
 function isPrimaryMouseButton(ev) {
 	return ev.which == 1 && !ev.ctrlKey;
 }
@@ -8027,11 +8027,11 @@ function EventManager(options) { // assumed to be a calendar
 				// retrieve any outbound GET/POST $.ajax data from the options
 				var customData;
 				if ($.isFunction(source.data)) {
-					// supplied as a function that returns a key/value object
+					// supplied as a function that returns a config/value object
 					customData = source.data();
 				}
 				else {
-					// supplied as a straight key/value object
+					// supplied as a straight config/value object
 					customData = source.data;
 				}
 
@@ -8308,7 +8308,7 @@ function EventManager(options) { // assumed to be a calendar
 	-----------------------------------------------------------------------------*/
 
 
-	// Given a raw object with key/value properties, returns an "abstract" Event object.
+	// Given a raw object with config/value properties, returns an "abstract" Event object.
 	// An "abstract" event is an event that, if recurring, will not have been expanded yet.
 	// Will return `false` when input is invalid.
 	// `source` is optional

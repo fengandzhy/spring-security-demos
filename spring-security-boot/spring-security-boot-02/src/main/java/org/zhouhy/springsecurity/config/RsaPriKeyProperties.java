@@ -10,8 +10,12 @@ import java.security.PublicKey;
 
 
 @Data
-@ConfigurationProperties(prefix = "heima.key")
-public class RsaKeyProperties {
+@ConfigurationProperties(prefix = "heima.config")
+public class RsaPriKeyProperties {
+
+
+//    private String priKeyPath;
+//    private PrivateKey privateKey;
 
     private String pubKeyPath;
     private String priKeyPath;
