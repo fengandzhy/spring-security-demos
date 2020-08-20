@@ -12,7 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.zhouhy.springsecurity.filter.TokenVerifyFilter;
 import org.zhouhy.springsecurity.key.RsaPubKeyProperties;
 
-import javax.annotation.Resource;
 
 
 @Configuration

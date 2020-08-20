@@ -12,6 +12,7 @@
         <module>spring-security-boot-02</module>
         <module>spring-security-common</module>
         <module>spring-security-boot-02-resource</module>
+        <module>spring-security-oauth2</module>
     </modules>
     <packaging>pom</packaging>
     <parent>
