@@ -11,4 +11,12 @@
 
     <artifactId>spring-security-jsonlogin</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.zhouhy</groupId>
+            <artifactId>spring-security-common</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+    </dependencies>
+
 </project>

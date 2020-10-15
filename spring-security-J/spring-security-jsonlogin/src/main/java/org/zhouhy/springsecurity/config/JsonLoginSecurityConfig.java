@@ -9,6 +9,10 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.zhouhy.springsecurity.security.AuthenticationEntryPointImpl;
+import org.zhouhy.springsecurity.security.AuthenticationFailureHandlerImpl;
+import org.zhouhy.springsecurity.security.AuthenticationSuccessHandlerImpl;
+import org.zhouhy.springsecurity.security.LogoutSuccessHandlerImpl;
 
 import java.io.PrintWriter;
 
@@ -42,41 +46,16 @@ public class JsonLoginSecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginProcessingUrl("/dologin")
                     .usernameParameter("name")
                     .passwordParameter("pwd")
-                    .successHandler(((request, response, authentication) -> {
-                        Object principal = authentication.getPrincipal();
-                        response.setContentType("application/json;charset=utf-8");
-                        PrintWriter out = response.getWriter();
-                        out.write(new ObjectMapper().writeValueAsString(principal));
-                        out.flush();
-                        out.close();
-                    }))
-                    .failureHandler(((request, response, exception) -> {
-                        response.setContentType("application/json;charset=utf-8");
-                        PrintWriter out = response.getWriter();
-                        out.write(exception.getLocalizedMessage());
-                        out.flush();
-                        out.close();
-                    }))
+                    .successHandler(new AuthenticationSuccessHandlerImpl())
+                    .failureHandler(new AuthenticationFailureHandlerImpl())
                     .permitAll()
                 .and()
                     .logout()
                     .logoutUrl("/dologout")
-                    .logoutSuccessHandler(((request, response, authentication) -> {
-                        response.setContentType("application/json;charset=utf-8");
-                        PrintWriter out = response.getWriter();
-                        out.write("注销成功");
-                        out.flush();
-                        out.close();
-                    }))
+                    .logoutSuccessHandler(new LogoutSuccessHandlerImpl())
                 .and()
                 .csrf().disable()
                 .exceptionHandling()
-                .authenticationEntryPoint(((request, response, authException) -> {
-                    response.setContentType("application/json;charset=utf-8");
-                    PrintWriter out = response.getWriter();
-                    out.write("尚未登录，请先登录");
-                    out.flush();
-                    out.close();
-                }));
+                .authenticationEntryPoint(new AuthenticationEntryPointImpl());
     }
 }

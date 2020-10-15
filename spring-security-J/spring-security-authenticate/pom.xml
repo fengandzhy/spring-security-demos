@@ -10,5 +10,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>spring-security-authenticate</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>org.zhouhy</groupId>
+            <artifactId>spring-security-common</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>
