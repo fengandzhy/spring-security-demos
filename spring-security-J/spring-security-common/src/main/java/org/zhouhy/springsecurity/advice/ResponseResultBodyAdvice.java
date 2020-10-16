@@ -18,6 +18,7 @@ import org.springframework.web.util.WebUtils;
 import org.zhouhy.springsecurity.annotation.ResponseResultBody;
 import org.zhouhy.springsecurity.exception.ResultException;
 import org.zhouhy.springsecurity.result.Result;
+import org.zhouhy.springsecurity.utils.JsonUtil;
 
 import java.lang.annotation.Annotation;
 
@@ -37,6 +38,9 @@ public class ResponseResultBodyAdvice implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         if(body instanceof Result){
             return body;
+        }
+        if (body instanceof String) {
+            return JsonUtil.object2Json(Result.success(body));
         }
         return Result.success(body);
     }

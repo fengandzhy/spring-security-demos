@@ -1,8 +1,14 @@
 package org.zhouhy.springsecurity.result;
 
+import lombok.Getter;
+import lombok.ToString;
 import org.zhouhy.springsecurity.enums.ResultStatus;
 
-public class Result<T> {
+import java.io.Serializable;
+
+@Getter
+@ToString
+public class Result<T> implements Serializable {
 
     private Integer code;
 

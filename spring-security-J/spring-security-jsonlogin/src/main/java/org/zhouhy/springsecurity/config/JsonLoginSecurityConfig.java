@@ -14,7 +14,6 @@ import org.zhouhy.springsecurity.security.AuthenticationFailureHandlerImpl;
 import org.zhouhy.springsecurity.security.AuthenticationSuccessHandlerImpl;
 import org.zhouhy.springsecurity.security.LogoutSuccessHandlerImpl;
 
-import java.io.PrintWriter;
 
 @Configuration
 public class JsonLoginSecurityConfig extends WebSecurityConfigurerAdapter {

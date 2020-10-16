@@ -1,8 +1,10 @@
 package org.zhouhy.springsecurity.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -11,8 +13,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.zhouhy.springsecurity.security.AuthenticationEntryPointImpl;
+import org.zhouhy.springsecurity.security.AuthenticationFailureHandlerImpl;
+import org.zhouhy.springsecurity.security.AuthenticationSuccessHandlerImpl;
+import org.zhouhy.springsecurity.security.LogoutSuccessHandlerImpl;
 
-import java.io.PrintWriter;
+
 
 @Configuration
 public class AuthenticateSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -35,52 +41,34 @@ public class AuthenticateSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/js/**","/css/**","/images/**");
     }
 
+    @Bean
+    RoleHierarchy roleHierarchy(){
+        RoleHierarchyImpl hierarchy = new RoleHierarchyImpl();
+        hierarchy.setHierarchy("ROLE_admin > ROLE_user");
+        return hierarchy;
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .anyRequest().authenticated()
                 .antMatchers("/admin/**").hasRole("admin")
                 .antMatchers("/user/**").hasRole("user")
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginProcessingUrl("/dologin")
                 .usernameParameter("name")
                 .passwordParameter("pwd")
-                .successHandler(((request, response, authentication) -> {
-                    Object principal = authentication.getPrincipal();
-                    response.setContentType("application/json;charset=utf-8");
-                    PrintWriter out = response.getWriter();
-                    out.write(new ObjectMapper().writeValueAsString(principal));
-                    out.flush();
-                    out.close();
-                }))
-                .failureHandler(((request, response, exception) -> {
-                    response.setContentType("application/json;charset=utf-8");
-                    PrintWriter out = response.getWriter();
-                    out.write(exception.getLocalizedMessage());
-                    out.flush();
-                    out.close();
-                }))
+                .successHandler(new AuthenticationSuccessHandlerImpl())
+                .failureHandler(new AuthenticationFailureHandlerImpl())
                 .permitAll()
                 .and()
                 .logout()
                 .logoutUrl("/dologout")
-                .logoutSuccessHandler(((request, response, authentication) -> {
-                    response.setContentType("application/json;charset=utf-8");
-                    PrintWriter out = response.getWriter();
-                    out.write("注销成功");
-                    out.flush();
-                    out.close();
-                }))
+                .logoutSuccessHandler(new LogoutSuccessHandlerImpl())
                 .and()
                 .csrf().disable()
                 .exceptionHandling()
-                .authenticationEntryPoint(((request, response, authException) -> {
-                    response.setContentType("application/json;charset=utf-8");
-                    PrintWriter out = response.getWriter();
-                    out.write("尚未登录，请先登录");
-                    out.flush();
-                    out.close();
-                }));
+                .authenticationEntryPoint(new AuthenticationEntryPointImpl());
     }
 }
