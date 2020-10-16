@@ -12,6 +12,7 @@
         <module>spring-security-jsonlogin</module>
         <module>spring-security-authenticate</module>
         <module>spring-security-common</module>
+        <module>spring-security-jdbc</module>
     </modules>
     <packaging>pom</packaging>
 
