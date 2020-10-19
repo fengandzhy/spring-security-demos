@@ -13,6 +13,7 @@
         <module>spring-security-authenticate</module>
         <module>spring-security-common</module>
         <module>spring-security-jdbc</module>
+        <module>spring-security-jpa</module>
     </modules>
     <packaging>pom</packaging>
 
