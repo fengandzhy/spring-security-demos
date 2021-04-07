@@ -44,6 +44,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * 11. 如果要在thymeleaf中引入spring security的标签需要做到这样几步
  *  1) 在pom文件中引入 thymeleaf-extras-springsecurity5 参见本例pom文件
  *  2) 在前台页面中输入xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" 
+ *  或者 xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4 (4.x版)
  *  3) 具体参看本例的使用方式
  * 
  * 12. http.authorizeRequests().anyRequest().permitAll().and().logout().permitAll(); 就等于所有认证都不需要了
