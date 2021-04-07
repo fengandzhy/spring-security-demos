@@ -57,7 +57,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *  14. 关于这个logout 加入这个.logoutRequestMatcher(new AntPathRequestMatcher("/logout","POST")) 那么logout必须是post请求
  *  如果不加这个在没有csrf认证的情况下,既可以是 get请求也可以是post请求
  * 
- * 
+ *  15. 关于这个successForwardUrl 这个跳转好像并不改变浏览器里的地址, 例如.defaultSuccessUrl("/welcome")登录成功之后地址栏里会是/welcom
+ *  而这个.successForwardUrl("/welcome")登录成功之后 地址栏里变成了/doLogin
+ *  
+ *  16. 关于这个return "redirect:/welcome"; 它会直接跳转到/welcome 这个路径中去, 而且这个路径必须要有GET请求访问,如果只是POST请求会报错
+ *  
+ *  
+ *  
  * */
 @SpringBootApplication
 public class FormLoginApp {

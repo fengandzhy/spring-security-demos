@@ -29,15 +29,21 @@ public class WelcomeController {
 //        return "/views/welcome";
 //    }
 
-    @RequestMapping(value="/welcome",method={RequestMethod.GET,RequestMethod.POST})
+    @RequestMapping(value="/welcome",method={RequestMethod.GET})
     public String welcome(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         model.addAttribute("username",username);
         return "/views/welcome";
     }
-    
-    
+
+    @RequestMapping(value={"","/","/index"})
+    public String index(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        model.addAttribute("username",username);
+        return "redirect:/welcome";
+    }
 
 //    @RequestMapping(value="/userInfo",method={RequestMethod.GET,RequestMethod.POST})
 //    public String userInfo(HttpServletRequest request, Model model){
