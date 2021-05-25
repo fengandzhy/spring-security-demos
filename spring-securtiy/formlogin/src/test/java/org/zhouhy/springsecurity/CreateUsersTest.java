@@ -32,7 +32,7 @@ public class CreateUsersTest {
         u1.setAccountNonExpired(true);
         u1.setAccountNonLocked(true);
         u1.setCredentialsNonExpired(true);
-        u1.setEnabled(true);
+        u1.setEnabled(false);
         List<Role> rs1 = new ArrayList<>();
         Role r1 = new Role();
         r1.setName("ROLE_user");

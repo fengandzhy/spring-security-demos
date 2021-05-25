@@ -62,7 +62,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *  
  *  16. 关于这个return "redirect:/welcome"; 它会直接跳转到/welcome 这个路径中去, 而且这个路径必须要有GET请求访问,如果只是POST请求会报错
  *  
- *  
+ *  17. 这个表t_user的设计, 原则上是需要这些字段的 accountNonExpired, accountNonLocked, credentialsNonExpired, enabled 
+ *  把这些字段设置成true存到数据库里的话, 数据库里的值是1, 那么它就可以正常登录, 反之上述字段有一个值为0, 就不能正常登录了
  *  
  * */
 @SpringBootApplication
