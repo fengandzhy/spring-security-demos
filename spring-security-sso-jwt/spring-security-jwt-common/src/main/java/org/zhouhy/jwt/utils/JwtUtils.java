@@ -1,10 +1,14 @@
 package org.zhouhy.jwt.utils;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.joda.time.DateTime;
+import org.zhouhy.jwt.domain.Payload;
 
 import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.util.Base64;
 import java.util.UUID;
 
@@ -45,7 +49,43 @@ public class JwtUtils {
                 .compact();
     }
     
+    /**
+     * 获取token中的用户信息
+     *
+     * @param token     用户请求中的令牌
+     * @param publicKey 公钥
+     * @return 用户信息
+     */
+    public static <T> Payload<T> getInfoFromToken(String token,PublicKey publicKey,Class<T> userType){
+        Jws<Claims> claimsJws = parserToken(token,publicKey);
+        Claims body = claimsJws.getBody();
+        Payload<T> claims = new Payload<>();
+        claims.setId(body.getId());
+        claims.setUserInfo(JsonUtils.toBean(body.get(JWT_PAYLOAD_USER_KEY).toString(),userType));
+        claims.setExpiration(body.getExpiration());
+        return claims;
+    }
+
+    /**
+     * 获取token中的载荷信息
+     *
+     * @param token     用户请求中的令牌
+     * @param publicKey 公钥
+     * @return 用户信息
+     */
+    public static <T> Payload<T> getInfoFromToken(String token,PublicKey publicKey){
+        Jws<Claims> claimsJws = parserToken(token,publicKey);
+        Claims body = claimsJws.getBody();
+        Payload<T> claims = new Payload<>();
+        claims.setId(body.getId());        
+        claims.setExpiration(body.getExpiration());
+        return claims;
+    }
     
+    
+    private static Jws<Claims> parserToken(String token, PublicKey publicKey){
+        return Jwts.parser().setSigningKey(publicKey).parseClaimsJws(token);
+    }
     
     private static String createJTI(){
         return new String(Base64.getEncoder().encode(UUID.randomUUID().toString().getBytes()));
