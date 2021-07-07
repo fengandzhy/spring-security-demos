@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +39,15 @@ public class JsonUtils {
         } catch (IOException e) {
             logger.error("json解析出错：" + json, e);
             return null;            
+        }
+    }
+
+    public static <T> T toBean(InputStream is, Class<T> eClass){
+        try {
+            return mapper.readValue(is,eClass);
+        } catch (IOException e) {
+            logger.error("json解析出错：" + is, e);
+            return null;
         }
     }
 
