@@ -48,7 +48,7 @@ public class TokenVerifyFilter extends BasicAuthenticationFilter {
             UserPojo userPojo = payload.getUserInfo();
             if(userPojo!=null){
                 UsernamePasswordAuthenticationToken authResult = 
-                        new UsernamePasswordAuthenticationToken(userPojo.getUsername(),null,userPojo.getAuthorities())
+                        new UsernamePasswordAuthenticationToken(userPojo.getUsername(),null,userPojo.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authResult);
                 chain.doFilter(request,response);
             }

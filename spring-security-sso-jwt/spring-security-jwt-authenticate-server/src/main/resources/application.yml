@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/security-j
+    url: jdbc:mysql://localhost:3306/security-J
     username: root
-    password: 123456
+    password: root
     type: com.alibaba.druid.pool.DruidDataSource
 mybatis:
   type-aliases-package: org.zhouhy.jwt.domain
@@ -13,5 +13,5 @@ logging:
     org.zhouhy.jwt: debug
 rsa:
   key:
-    pubKeyFile: d:\tools\auth_key\id_key_rsa.pub
-    priKeyFile: d:\tools\auth_key\id_key_rsa
+    publicKeyFile: d:\tools\auth_key\id_key_rsa.pub
+    privateKeyFile: d:\tools\auth_key\id_key_rsa

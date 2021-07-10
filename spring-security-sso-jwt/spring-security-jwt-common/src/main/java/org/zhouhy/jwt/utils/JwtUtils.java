@@ -28,7 +28,7 @@ public class JwtUtils {
                 .claim(JWT_PAYLOAD_USER_KEY,JsonUtils.toString(userInfo))
                 .setId(createJTI())
                 .setExpiration(DateTime.now().plusMinutes(expire).toDate())
-                .signWith(privateKey, SignatureAlgorithm.ES256)
+                .signWith(privateKey, SignatureAlgorithm.RS256)
                 .compact();
     }
 
@@ -45,7 +45,7 @@ public class JwtUtils {
                 .claim(JWT_PAYLOAD_USER_KEY,JsonUtils.toString(userInfo))
                 .setId(createJTI())
                 .setExpiration(DateTime.now().plusSeconds(expire).toDate())
-                .signWith(privateKey, SignatureAlgorithm.ES256)
+                .signWith(privateKey, SignatureAlgorithm.RS256)
                 .compact();
     }
     
