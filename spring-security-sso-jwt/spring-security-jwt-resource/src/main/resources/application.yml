@@ -1,0 +1,18 @@
+server:
+  port: 9002
+#spring:
+#  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/security-J
+#    username: root
+#    password: root
+#    type: com.alibaba.druid.pool.DruidDataSource
+#mybatis:
+#  type-aliases-package: org.zhouhy.jwt.domain
+#  mapper-locations: classpath:mapper/*.xml
+logging:
+  level:
+    org.zhouhy.jwt: debug
+rsa:
+  key:
+    publicKeyFile: d:\tools\auth_key\id_key_rsa.pub
