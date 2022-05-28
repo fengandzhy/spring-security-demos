@@ -9,6 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>scurity-ch01</module>
+        <module>security-ch02</module>
     </modules>
     <packaging>pom</packaging>
     <parent>
