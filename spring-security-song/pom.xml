@@ -11,6 +11,7 @@
         <module>security-ch01</module>
         <module>security-ch02</module>
         <module>security-ch03</module>
+        <module>security-ch04</module>
     </modules>
     <packaging>pom</packaging>
     <parent>
