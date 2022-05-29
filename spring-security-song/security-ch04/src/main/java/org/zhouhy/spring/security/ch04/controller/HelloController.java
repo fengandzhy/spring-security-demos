@@ -16,4 +16,9 @@ public class HelloController {
     public String success(){
         return "login success.";
     }
+
+    @RequestMapping("/failure")
+    public String failure(){
+        return "login failure.";
+    }
 }

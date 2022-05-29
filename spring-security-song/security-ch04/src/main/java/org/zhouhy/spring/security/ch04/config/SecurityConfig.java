@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * 这个类必须继承于WebSecurityConfigurerAdapter, 并且有@Configuration 注解 
@@ -50,15 +51,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().anyRequest().authenticated()
-                .and().formLogin()
-                .loginPage("/login.html")
-                .loginProcessingUrl("/login")
-                .usernameParameter("name")
-                .passwordParameter("pwd")
-//                .successForwardUrl("/success")
-                .defaultSuccessUrl("/success")
-                .permitAll()
                 .and()
-                .csrf().disable();     
+                    .formLogin()
+                    .loginPage("/login.html")
+                    .loginProcessingUrl("/login")
+                    .usernameParameter("name")
+                    .passwordParameter("pwd")
+//                    .successForwardUrl("/success")
+                    .defaultSuccessUrl("/success")
+//                    .failureForwardUrl("/failure")
+                    .failureUrl("/failure")
+                    .permitAll()
+                .and()
+                    .logout()                
+//                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST"))
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/login.html")
+                    .invalidateHttpSession(true)
+                    .clearAuthentication(true)
+                    .permitAll()
+                .and()
+                    .csrf().disable();     
     }
 }
