@@ -41,7 +41,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/js/**", "/css/**","/images/**");
     }
-
+    
+    /**
+     * 1. 这里如果没有特别指明, 登录页面是 login.html 然后 登录的action 也会是 login.html只不过一个是get请求， 一个是post 请求
+     * 2. anyRequest().authenticated() 表示任何请求都要被认证
+     * 3. permitAll() 表示and() 里面的这个请求可以不用认证直接访问
+     * 
+     * */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().anyRequest().authenticated()
