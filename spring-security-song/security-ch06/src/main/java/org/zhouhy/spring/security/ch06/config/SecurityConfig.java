@@ -54,8 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().anyRequest().authenticated()
                 .and()
-                    .formLogin()
-                    .loginPage("/login.html")
+                    .formLogin()                    
                     .loginProcessingUrl("/login")
                     .usernameParameter("name")
                     .passwordParameter("pwd")
