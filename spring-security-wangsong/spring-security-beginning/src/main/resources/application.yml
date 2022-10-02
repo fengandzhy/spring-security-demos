@@ -3,3 +3,5 @@ spring:
     user:
       name: frank
       password: 123456
+#server:
+#  port: 8088
