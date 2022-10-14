@@ -31,10 +31,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .password("654321").roles("admin");
     }
 
+    /**
+     * 虽然main.css在static/css里面, 但是这里还是要写成/css/** 不能写成"/static/css/**
+     * 因为这个static是静态资源的默认的访问目录
+     * */
     @Override
     public void configure(WebSecurity web) throws Exception {
-        super.configure(web);
-    }
+        web.ignoring().antMatchers("/js/**", "/css/**","/images/**");
+    }    
 
     /**
      *  1.在Security中.loginPage("/login.html") 这里如果写成这样,并且在controller里面没有配置过/login.html这个路径,
@@ -45,6 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .anyRequest().authenticated()
+//                .anyRequest().permitAll();
                 .and()
                     .formLogin()
                     .loginPage("/login.html")
