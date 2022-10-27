@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * 因为这个static是静态资源的默认的访问目录
      * */
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) throws Exception {        
         web.ignoring().antMatchers("/js/**", "/css/**","/images/**");
     }    
 
@@ -49,10 +49,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .anyRequest().authenticated()
-//                .anyRequest().permitAll();
                 .and()
                     .formLogin()
                     .loginPage("/login.html")
+                    .loginProcessingUrl("/doLogin")
                     .permitAll()
                 .and()
                     .csrf().disable();
