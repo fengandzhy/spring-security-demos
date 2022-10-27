@@ -53,6 +53,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .formLogin()
                     .loginPage("/login.html")
                     .loginProcessingUrl("/doLogin")
+                    .usernameParameter("name")
+                    .passwordParameter("pwd")
                     .permitAll()
                 .and()
                     .csrf().disable();
