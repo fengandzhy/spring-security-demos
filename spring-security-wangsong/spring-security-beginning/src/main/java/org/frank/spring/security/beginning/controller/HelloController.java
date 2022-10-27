@@ -11,4 +11,9 @@ public class HelloController {
     public String sayHello(@PathVariable String name){
         return "hello," + name;
     }
+
+    @GetMapping("/success")
+    public String success(){
+        return "login success.";
+    }
 }
