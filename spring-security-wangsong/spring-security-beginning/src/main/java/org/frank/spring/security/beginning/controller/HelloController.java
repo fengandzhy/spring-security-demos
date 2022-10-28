@@ -1,8 +1,6 @@
 package org.frank.spring.security.beginning.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class HelloController {
@@ -12,8 +10,14 @@ public class HelloController {
         return "hello," + name;
     }
 
-    @GetMapping("/success")
+//    @GetMapping("/success")
+    @RequestMapping("/success")
     public String success(){
         return "login success.";        
+    }
+
+    @RequestMapping("/fail")
+    public String fail(){
+        return "login failed.";
     }
 }
