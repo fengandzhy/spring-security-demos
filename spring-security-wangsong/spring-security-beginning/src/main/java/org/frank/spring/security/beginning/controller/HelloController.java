@@ -14,7 +14,6 @@ public class HelloController {
 
     @GetMapping("/success")
     public String success(){
-        return "login success.";
-        
+        return "login success.";        
     }
 }

@@ -55,6 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginProcessingUrl("/doLogin")
                     .usernameParameter("name")
                     .passwordParameter("pwd")
+                    .defaultSuccessUrl("/success",true)
                     .permitAll()
                 .and()
                     .csrf().disable();
