@@ -10,6 +10,7 @@
     <modules>
         <module>spring-security-beginning</module>
         <module>spring-security-json</module>
+        <module>spring-security-authority</module>
     </modules>
     <packaging>pom</packaging>
     <parent>
