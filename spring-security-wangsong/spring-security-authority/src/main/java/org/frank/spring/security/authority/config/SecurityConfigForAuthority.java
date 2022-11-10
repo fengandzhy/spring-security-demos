@@ -32,20 +32,20 @@ public class SecurityConfigForAuthority extends WebSecurityConfigurerAdapter {
         return manager;
     }
 
-//    @Bean
-//    RoleHierarchy roleHierarchy() {
-//        RoleHierarchyImpl hierarchy = new RoleHierarchyImpl();
-//        hierarchy.setHierarchy("ROLE_admin > ROLE_user");
-//        return hierarchy;
-//    }
+    @Bean
+    RoleHierarchy roleHierarchy() {
+        RoleHierarchyImpl hierarchy = new RoleHierarchyImpl();
+        hierarchy.setHierarchy("ROLE_admin > ROLE_user");
+        return hierarchy;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-//                .antMatchers("/admin/**").hasRole("admin")
-//                .antMatchers("/user/**").hasRole("user")
-                .antMatchers("/admin/**").hasAnyRole("admin","user")
+                .antMatchers("/admin/**").hasRole("admin")
                 .antMatchers("/user/**").hasRole("user")
+//                .antMatchers("/admin/**").hasAnyRole("admin","user")
+//                .antMatchers("/user/**").hasRole("user")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
