@@ -29,6 +29,10 @@ public class SecurityConfigForAuthority extends WebSecurityConfigurerAdapter {
         return NoOpPasswordEncoder.getInstance();
     }
 
+    /**
+     * 这是另外一种方式从内存中产生数据，这种方式返回的是一个实现了UserDetailsService接口的类或者其子类, 
+     * UserDetailsService 封装的数据来源
+     * */
     @Bean
     protected UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
@@ -50,7 +54,7 @@ public class SecurityConfigForAuthority extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/admin/**").hasRole("admin")
 //                .antMatchers("/user/**").hasRole("user")
 //                .antMatchers("/admin/**").hasAnyRole("admin","user")
-//                .antMatchers("/user/**").hasRole("user")
+//                .antMatchers("/user/**").hasRole("user")                
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
