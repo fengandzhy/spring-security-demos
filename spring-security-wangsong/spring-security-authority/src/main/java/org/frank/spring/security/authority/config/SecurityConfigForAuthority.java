@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
@@ -17,6 +18,10 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import java.io.PrintWriter;
 
 @Configuration
+@EnableGlobalMethodSecurity(
+        prePostEnabled = true,
+        securedEnabled = true,
+        jsr250Enabled = true)
 public class SecurityConfigForAuthority extends WebSecurityConfigurerAdapter {
 
     @Bean
@@ -28,7 +33,7 @@ public class SecurityConfigForAuthority extends WebSecurityConfigurerAdapter {
     protected UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         manager.createUser(User.withUsername("frank").password("123").roles("admin").build());
-        manager.createUser(User.withUsername("sam").password("123").roles("user").build());
+        manager.createUser(User.withUsername("sam").password("123").roles("user").build());        
         return manager;
     }
 
@@ -42,8 +47,9 @@ public class SecurityConfigForAuthority extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/admin/**").hasRole("admin")
-                .antMatchers("/user/**").hasRole("user")
+
+//                .antMatchers("/admin/**").hasRole("admin")
+//                .antMatchers("/user/**").hasRole("user")
 //                .antMatchers("/admin/**").hasAnyRole("admin","user")
 //                .antMatchers("/user/**").hasRole("user")
                 .anyRequest().authenticated()
