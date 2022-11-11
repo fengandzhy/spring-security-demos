@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * 这是一个用户产生方式的类
      */
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {        
         auth.inMemoryAuthentication()
                 .withUser("frank")
                 .password("654321").roles("admin");
