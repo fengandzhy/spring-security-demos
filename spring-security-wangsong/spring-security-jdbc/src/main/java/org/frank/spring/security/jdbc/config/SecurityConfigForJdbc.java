@@ -27,9 +27,10 @@ public class SecurityConfigForJdbc extends WebSecurityConfigurerAdapter {
     @Bean
     PasswordEncoder passwordEncoder(){
         return NoOpPasswordEncoder.getInstance();
-    }    
+    }
 
-    @Override
+    @Bean
+    @Override    
     protected UserDetailsService userDetailsService() {
         JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager();
         jdbcUserDetailsManager.setDataSource(dataSource);
