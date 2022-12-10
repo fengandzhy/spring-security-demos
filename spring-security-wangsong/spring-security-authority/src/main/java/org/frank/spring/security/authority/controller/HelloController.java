@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
 
+    @PreAuthorize("principal.username.equals('frank')")
     @GetMapping("/hello")
     public String hello() {
         return "hello";
