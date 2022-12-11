@@ -18,10 +18,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import java.io.PrintWriter;
 
 @Configuration
-@EnableGlobalMethodSecurity(
-        prePostEnabled = true,
-        securedEnabled = true,
-        jsr250Enabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfigForAuthority extends WebSecurityConfigurerAdapter {
 
     @Bean
