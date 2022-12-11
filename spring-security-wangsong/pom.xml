@@ -12,6 +12,7 @@
         <module>spring-security-json</module>
         <module>spring-security-authority</module>
         <module>spring-security-jdbc</module>
+        <module>spring-security-spring-data</module>
     </modules>
     <packaging>pom</packaging>
     <parent>
