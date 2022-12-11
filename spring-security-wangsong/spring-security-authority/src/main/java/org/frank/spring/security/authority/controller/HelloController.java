@@ -33,7 +33,7 @@ public class HelloController {
 
     @GetMapping("/user/hello")
 //    @PreAuthorize("hasAuthority('ROLE_user')")
-    @PreAuthorize("hasRole('admin')")    
+    @PreAuthorize("hasRole('user')")    
     public String user() {
         return "user";
     }
@@ -52,6 +52,25 @@ public class HelloController {
     public String getAllUser() {
         List<String> users = service.getAllUser();
         return users.toString();
+    }
+
+    @GetMapping("/ages")
+    @Secured("ROLE_user")
+//    @PreAuthorize("hasRole('user')")
+//    @PreAuthorize("hasAuthority('ROLE_user')")
+    public void getAllAges() {
+        List<Integer> ages = new ArrayList<>();
+        ages.add(1);
+        ages.add(2);
+        ages.add(3);
+        ages.add(4);
+        
+        List<String> users = new ArrayList<>();
+        users.add("A");
+        users.add("B");
+        users.add("C");
+        
+        service.getAllAge(ages,users);        
     }
 
 }
