@@ -49,7 +49,7 @@ public class SecurityConfigForAuthority extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
 
-//                .antMatchers("/admin/**").hasRole("admin")
+//                .antMatchers("/ages/**").hasRole("user")
 //                .antMatchers("/user/**").hasRole("user")
 //                .antMatchers("/admin/**").hasAnyRole("admin","user")
 //                .antMatchers("/user/**").hasRole("user")                

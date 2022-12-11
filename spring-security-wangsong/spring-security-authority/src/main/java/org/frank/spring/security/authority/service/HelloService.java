@@ -1,6 +1,7 @@
 package org.frank.spring.security.authority.service;
 
 import org.springframework.security.access.prepost.PostFilter;
+import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,5 +22,11 @@ public class HelloService {
             users.add("javaboy:" + i);
         }
         return users;
+    }
+
+    @PreFilter(filterTarget = "ages",value = "filterObject%2==0")
+    public void getAllAge(List<Integer> ages,List<String> users) {
+        System.out.println("ages = " + ages);
+        System.out.println("users = " + users);
     }
 }
