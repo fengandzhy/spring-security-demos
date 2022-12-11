@@ -3,6 +3,8 @@ package org.frank.spring.security.jdbc.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
@@ -28,6 +30,13 @@ public class SecurityConfigForJdbc extends WebSecurityConfigurerAdapter {
     PasswordEncoder passwordEncoder(){
         return NoOpPasswordEncoder.getInstance();
     }
+    
+    @Bean
+    RoleHierarchy roleHierarchy(){
+        RoleHierarchyImpl impl = new RoleHierarchyImpl();
+        impl.setHierarchy("ROLE_admin > ROLE_user");
+        return impl;
+    }
 
     @Bean
     @Override    
@@ -35,7 +44,7 @@ public class SecurityConfigForJdbc extends WebSecurityConfigurerAdapter {
         JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager();
         jdbcUserDetailsManager.setDataSource(dataSource);
         if(!jdbcUserDetailsManager.userExists("Frank")){
-            jdbcUserDetailsManager.createUser(User.withUsername("Frank").password("123456").roles("admin","user").build());
+            jdbcUserDetailsManager.createUser(User.withUsername("Frank").password("123456").roles("admin").build());
         }
         if(!jdbcUserDetailsManager.userExists("Sam")){
             jdbcUserDetailsManager.createUser(User.withUsername("Sam").password("654321").roles("user").build());
