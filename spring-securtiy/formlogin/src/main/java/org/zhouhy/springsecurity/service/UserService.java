@@ -12,12 +12,17 @@ import org.zhouhy.springsecurity.entity.User;
 @Service
 public class UserService implements UserDetailsService {
     
-    @Autowired
+    final
     UserDao userDao;
     
-    @Autowired
+    final
     PasswordEncoder passwordEncoder;
-    
+
+    public UserService(UserDao userDao, PasswordEncoder passwordEncoder) {
+        this.userDao = userDao;
+        this.passwordEncoder = passwordEncoder;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDao.findByUsername(username);

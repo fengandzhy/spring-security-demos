@@ -1,6 +1,7 @@
 package org.frank.spring.security.spring.data.config;
 
 import org.frank.spring.security.spring.data.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,12 +15,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 public class SecurityConfigForSpringData extends WebSecurityConfigurerAdapter {
 
-    private UserService userService;
     
-    public SecurityConfigForSpringData(UserService userService){
-        this.userService = userService;
-    }
-    
+    private UserService userService;   
+
     @Bean
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();        
@@ -35,7 +33,7 @@ public class SecurityConfigForSpringData extends WebSecurityConfigurerAdapter {
      * 因为这个static是静态资源的默认的访问目录
      * */
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web){
         web.ignoring().antMatchers("/js/**", "/css/**","/images/**");
     }
 
@@ -60,5 +58,10 @@ public class SecurityConfigForSpringData extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .and()
                     .csrf().disable();
+    }
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 }

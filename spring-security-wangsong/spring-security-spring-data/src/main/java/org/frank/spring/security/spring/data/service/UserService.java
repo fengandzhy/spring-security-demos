@@ -1,6 +1,7 @@
 package org.frank.spring.security.spring.data.service;
 
 import org.frank.spring.security.spring.data.dao.UserDao;
+import org.frank.spring.security.spring.data.entities.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,11 +17,14 @@ public class UserService implements UserDetailsService {
     public UserService(UserDao userDao,PasswordEncoder passwordEncoder){
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
-    }
-    
+    }    
     
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+        User user = userDao.findByUsername(username);
+        if(null == user){
+            throw new UsernameNotFoundException("用户不存在");
+        }
+        return user;
     }
 }
