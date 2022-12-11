@@ -1,5 +1,7 @@
 package org.frank.spring.security.authority.controller;
 
+import org.frank.spring.security.authority.service.HelloService;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +12,12 @@ import java.util.List;
 
 @RestController
 public class HelloController {
+    
+    private HelloService service;
+    
+    public HelloController(HelloService service){
+        this.service = service;
+    }
     
     @GetMapping("/hello")
     public String hello() {
@@ -39,13 +47,11 @@ public class HelloController {
         return "frank";
     }
 
-    @PostFilter("filterObject.lastIndexOf('2')!=-1")
-    public List<String> getAllUser() {
-        List<String> users = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            users.add("javaboy:" + i);
-        }
-        return users;
+    @GetMapping("/users")
+    @Secured("ROLE_admin")
+    public String getAllUser() {
+        List<String> users = service.getAllUser();
+        return users.toString();
     }
 
 }
