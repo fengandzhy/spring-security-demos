@@ -1,10 +1,7 @@
 package org.frank.spring.security.spring.data.entities;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
 @Entity(name = "t_role")
@@ -13,6 +10,8 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "name", unique=true)
     private String name;
     private String nameZh;
 

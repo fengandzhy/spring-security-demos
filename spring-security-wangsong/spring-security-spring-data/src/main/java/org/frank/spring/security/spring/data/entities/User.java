@@ -16,15 +16,18 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "username", unique=true)
     private String username;
+    
     private String password;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
     private boolean enabled;
 
-    @ManyToMany(fetch=FetchType.EAGER,cascade = CascadeType.PERSIST)
-    private List<Role> roles;
+    @ManyToMany(fetch=FetchType.EAGER,cascade = CascadeType.DETACH)
+    private List<Role> roles = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -95,5 +98,9 @@ public class User implements UserDetails {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
     }
 }

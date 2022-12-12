@@ -16,7 +16,7 @@
     <div class="userInfo">您好,[[${username}]]</div>
     <div class="logout">
         <form th:action="@{/logout}" method="post" >
-            <input type="hidden" th:value="${_csrf.token}" th:name="${_csrf.parameterName}">
+<!--            <input type="hidden" th:value="${_csrf.token}" th:name="${_csrf.parameterName}">-->
             <button type="submit">退出</button>
         </form>
     </div>
@@ -33,6 +33,7 @@
 
     <p>拥有的角色：
         <!-- 角色判断，是否拥有某个角色，从authorities取值判断 -->
+        <span sec:authorize="hasRole('ROLE_user')">普通用户</span>
         <span sec:authorize="hasRole('ROLE_admin')">管理员</span>
         <!-- 授权判断，是否拥有某种授权，从authorities取值判断 -->
         <span sec:authorize="hasAnyAuthority('ROLE_ADMINISTRATOR')" >超级管理员</span>
