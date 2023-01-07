@@ -26,7 +26,7 @@ public class User implements UserDetails {
     private boolean credentialsNonExpired;
     private boolean enabled;
 
-    @ManyToMany(fetch=FetchType.EAGER,cascade = CascadeType.DETACH)
+    @ManyToMany(fetch=FetchType.EAGER)
     private List<Role> roles = new ArrayList<>();
 
     @Override
