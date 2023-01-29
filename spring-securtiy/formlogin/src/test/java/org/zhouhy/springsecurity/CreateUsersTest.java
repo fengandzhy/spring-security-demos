@@ -16,7 +16,7 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class CreateUsersTest {
+public class CreateUsersTest {   
 
     @Autowired
     UserDao userDao;
