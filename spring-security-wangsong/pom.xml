@@ -13,6 +13,7 @@
         <module>spring-security-authority</module>
         <module>spring-security-jdbc</module>
         <module>spring-security-spring-data</module>
+        <module>spring-security-remember-me</module>
     </modules>
     <packaging>pom</packaging>
     <parent>
