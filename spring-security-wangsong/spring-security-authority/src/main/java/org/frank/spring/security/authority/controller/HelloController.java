@@ -1,8 +1,10 @@
 package org.frank.spring.security.authority.controller;
 
 import org.frank.spring.security.authority.service.HelloService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PostFilter;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +14,8 @@ import java.util.List;
 
 @RestController
 public class HelloController {
+
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
     
     private HelloService service;
     
@@ -71,6 +75,13 @@ public class HelloController {
         users.add("C");
         
         service.getAllAge(ages,users);        
+    }
+
+    @GetMapping("/test_post")
+    @PostAuthorize("hasAuthority('ROLE_admin')")
+    public String postAuthorize(){
+        logger.info("In the method. ");
+        return "postAuthorize";
     }
 
 }
