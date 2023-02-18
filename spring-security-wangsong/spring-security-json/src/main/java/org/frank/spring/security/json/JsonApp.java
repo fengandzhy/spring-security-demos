@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SecurityApp02 {
+public class JsonApp {
     public static void main(String args[]){
-        SpringApplication.run(SecurityApp02.class,args);                
+        SpringApplication.run(JsonApp.class,args);                
     }
 }
