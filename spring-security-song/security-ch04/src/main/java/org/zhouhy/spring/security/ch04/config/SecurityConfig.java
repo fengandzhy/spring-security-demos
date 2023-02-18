@@ -5,9 +5,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
@@ -15,7 +20,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
  * 
  * */
 @Configuration
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
+@EnableWebSecurity
+public class SecurityConfig{
     
     // 这是个密码加密的bean
     @Bean
@@ -24,12 +30,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     }
 
     // 设置用户名和密码的
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-                auth.inMemoryAuthentication()
-                .withUser("zhouhy")
-                .password("123456")
-                .roles("admin");
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//                auth.inMemoryAuthentication()
+//                .withUser("zhouhy")
+//                .password("123456")
+//                .roles("admin");
+//    }
+
+    @Bean
+    public InMemoryUserDetailsManager userDetailsService() {
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        manager.createUser(User.withUsername("frank").password("123").roles("admin").build());        
+        return manager;
     }
 
     /**
@@ -37,9 +50,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
      * 虽然main.css在static/css里面, 但是这里还是要写成/css/** 不能写成"/static/css/**
      * 因为这个static是静态资源的默认的访问目录
      * */
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/js/**", "/css/**","/images/**");
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web.ignoring().antMatchers("/js/**", "/css/**","/images/**");
+//    }
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().antMatchers("/js/**", "/css/**","/images/**");
     }
     
     /**
@@ -48,8 +66,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
      * 3. permitAll() 表示and() 里面的这个请求可以不用认证直接访问
      * 
      * */
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.authorizeRequests().anyRequest().authenticated()
+//                .and()
+//                    .formLogin()
+//                    .loginPage("/login.html")
+//                    .loginProcessingUrl("/login")
+//                    .usernameParameter("name")
+//                    .passwordParameter("pwd")
+////                    .successForwardUrl("/success")
+//                    .defaultSuccessUrl("/success")
+////                    .failureForwardUrl("/failure")
+//                    .failureUrl("/failure")
+//                    .permitAll()
+//                .and()
+//                    .logout()                
+////                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST"))
+//                    .logoutUrl("/logout")
+//                    .logoutSuccessUrl("/login.html")
+//                    .invalidateHttpSession(true)
+//                    .clearAuthentication(true)
+//                    .permitAll()
+//                .and()
+//                    .csrf().disable();     
+//    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests().anyRequest().authenticated()
                 .and()
                     .formLogin()
@@ -57,13 +101,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                     .loginProcessingUrl("/login")
                     .usernameParameter("name")
                     .passwordParameter("pwd")
-//                    .successForwardUrl("/success")
                     .defaultSuccessUrl("/success")
-//                    .failureForwardUrl("/failure")
                     .failureUrl("/failure")
                     .permitAll()
                 .and()
-                    .logout()                
+                .logout()
 //                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST"))
                     .logoutUrl("/logout")
                     .logoutSuccessUrl("/login.html")
@@ -71,6 +113,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                     .clearAuthentication(true)
                     .permitAll()
                 .and()
-                    .csrf().disable();     
+                    .csrf().disable();
+        return http.build();
     }
 }
