@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SecurityApp03 {
+public class AuthorityApp {
     public static void main(String[] args) {
-        SpringApplication.run(SecurityApp03.class,args);
+        SpringApplication.run(AuthorityApp.class,args);
     }
 }
