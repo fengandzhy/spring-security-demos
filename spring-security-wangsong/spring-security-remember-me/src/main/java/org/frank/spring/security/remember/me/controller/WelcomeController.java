@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
+
 @Controller
 public class WelcomeController {   
 
@@ -28,13 +31,13 @@ public class WelcomeController {
         return "redirect:/welcome";
     }
 
-//    @RequestMapping(value="/userInfo",method={RequestMethod.GET,RequestMethod.POST})
-//    public String userInfo(HttpServletRequest request, Model model){
-//        Principal principal = request.getUserPrincipal();
-//        String username = principal.getName();
-//        model.addAttribute("username",username);
-//        return "/views/userinfo";
-//    }
+    @RequestMapping(value="/userInfo",method={RequestMethod.GET,RequestMethod.POST})
+    public String userInfo(HttpServletRequest request, Model model){
+        Principal principal = request.getUserPrincipal();
+        String username = principal.getName();
+        model.addAttribute("username",username);
+        return "/views/userinfo";
+    }
 
     @RequestMapping(value="/hello",method={RequestMethod.GET,RequestMethod.POST})
     @ResponseBody
