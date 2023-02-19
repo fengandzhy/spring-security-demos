@@ -56,6 +56,9 @@ public class SecurityConfigForRememberMe extends WebSecurityConfigurerAdapter {
                     .logoutSuccessUrl("/login.html")
                     .permitAll()
                 .and()
+                    .rememberMe()
+                    .rememberMeParameter("rememberme")
+                .and()
                     .csrf().disable();
     }
 
