@@ -57,7 +57,6 @@ public class SecurityConfigForRememberMe extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .and()
                     .rememberMe()
-//                    .rememberMeParameter("rememberme")
                     .key("zhou_hy")
                 .and()
                     .csrf().disable();
