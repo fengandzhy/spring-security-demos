@@ -61,7 +61,6 @@ public class SecurityConfigForRememberMe extends WebSecurityConfigurerAdapter {
                 .and()
                     .csrf().disable();
     }
-
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
