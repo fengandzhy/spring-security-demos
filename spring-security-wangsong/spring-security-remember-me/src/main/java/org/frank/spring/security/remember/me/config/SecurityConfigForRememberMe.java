@@ -46,13 +46,14 @@ public class SecurityConfigForRememberMe extends WebSecurityConfigurerAdapter {
     public PersistentTokenRepository persistentTokenRepository() {
         JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
         tokenRepository.setDataSource(dataSource); // 设置数据源
-//        tokenRepository.setCreateTableOnStartup(true); // 启动创建表，创建成功后注释掉
         return tokenRepository;
     }
 
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .anyRequest().authenticated()
+                .antMatchers("/hello").rememberMe() // 必须通过自动认证后才能访问
+                .antMatchers("/userInfo").fullyAuthenticated() // 必须用户名密码才能访问
                 .and().formLogin()
                     .loginPage("/login.html")
                     .loginProcessingUrl("/doLogin")
