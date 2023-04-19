@@ -15,6 +15,7 @@
         <module>spring-security-spring-data</module>
         <module>spring-security-remember-me</module>
         <module>spring-security-remember-me-persist</module>
+        <module>spring-security-customer-filter</module>
     </modules>
     <packaging>pom</packaging>
     <parent>
