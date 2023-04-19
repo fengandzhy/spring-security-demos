@@ -12,7 +12,8 @@ public class Base64Decoder {
     
     @Test
     void contextLoads() throws UnsupportedEncodingException {
-        String base64Str = "ZnJhbms6MTY3ODQzMzA5MTM3NTplNWVlNmZjZjQ5YzBmM2U4OGY0NTQyNTM2ZTdhOTI0Zg";
+//        String base64Str = "ZnJhbms6MTY3ODQzMzA5MTM3NTplNWVlNmZjZjQ5YzBmM2U4OGY0NTQyNTM2ZTdhOTI0Zg";
+        String base64Str = "Vnh1VWVpd3FaYkNBaXJQVks5M0ZXZyUzRCUzRDp0ek1ZSkFsSWRJTmglMkJUN1Vienl6TEElM0QlM0Q";
         String s = new String(Base64.getDecoder().decode(base64Str), "UTF-8");
         logger.info(s);
     }
