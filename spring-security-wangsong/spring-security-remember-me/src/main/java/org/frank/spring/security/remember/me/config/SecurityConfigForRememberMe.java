@@ -10,12 +10,18 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import javax.sql.DataSource;
 
 @Configuration
 public class SecurityConfigForRememberMe extends WebSecurityConfigurerAdapter {
 
     private UserService userService;
+    
+    private DataSource dataSource; // 数据源
 
     @Bean
     PasswordEncoder passwordEncoder(){
@@ -34,6 +40,14 @@ public class SecurityConfigForRememberMe extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web){
         web.ignoring().antMatchers("/js/**", "/css/**","/images/**");
+    }
+
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
+        tokenRepository.setDataSource(dataSource); // 设置数据源
+//        tokenRepository.setCreateTableOnStartup(true); // 启动创建表，创建成功后注释掉
+        return tokenRepository;
     }
 
     protected void configure(HttpSecurity http) throws Exception {
@@ -58,6 +72,9 @@ public class SecurityConfigForRememberMe extends WebSecurityConfigurerAdapter {
                 .and()
                     .rememberMe()
                     .key("zhou_hy")
+                    .userDetailsService(userService) // 设置userDetailsService
+                    .tokenRepository(persistentTokenRepository()) // 设置数据访问层
+                    .tokenValiditySeconds(60 * 60) // 记住我的时间(秒)
                 .and()
                     .csrf().disable();
     }
@@ -65,5 +82,10 @@ public class SecurityConfigForRememberMe extends WebSecurityConfigurerAdapter {
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 }
