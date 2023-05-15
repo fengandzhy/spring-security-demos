@@ -13,8 +13,7 @@
         <module>spring-security-authority</module>
         <module>spring-security-jdbc</module>
         <module>spring-security-spring-data</module>
-        <module>spring-security-remember-me</module>
-        <module>spring-security-remember-me-persist</module>
+        <module>spring-security-remember-me</module>        
         <module>spring-security-customer-filter</module>
     </modules>
     <packaging>pom</packaging>
@@ -59,11 +58,11 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>            
-            <version>1.18.2</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.projectlombok</groupId>-->
+<!--            <artifactId>lombok</artifactId>            -->
+<!--            <version>1.18.2</version>-->
+<!--        </dependency>-->
 
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.security</groupId>-->
