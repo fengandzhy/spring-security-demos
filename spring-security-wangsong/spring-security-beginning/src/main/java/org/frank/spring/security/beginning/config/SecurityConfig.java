@@ -35,6 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 虽然main.css在static/css里面, 但是这里还是要写成/css/** 不能写成"/static/css/**
      * 因为这个static是静态资源的默认的访问目录
+     * /js/** 这个表示在默认目录下有个js目录, 在这个js目录下的所有文件. 
+     * 什么是默认目录? 就是静态资源访问的目录 META-INF/resources > resources > static > public
      * */
     @Override
     public void configure(WebSecurity web) throws Exception {        
@@ -57,13 +59,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .usernameParameter("name")
                     .passwordParameter("pwd")
                     .defaultSuccessUrl("/welcome.html")
+//                    .successForwardUrl("/welcome.html")
                     .failureUrl("/fail")                    
                     .permitAll()
                 .and()
                     .logout()
 //                    .logoutUrl("/logout")
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout","POST"))
-                    .logoutSuccessUrl("/login.html")
+                    .logoutSuccessUrl("/login.html")                
                     .deleteCookies()
                     .clearAuthentication(true)
                     .invalidateHttpSession(true)
