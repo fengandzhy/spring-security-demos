@@ -14,12 +14,9 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import java.io.PrintWriter;
 
-/**
- * 这个类必须继承于WebSecurityConfigurerAdapter, 并且有@Configuration 注解 
- * 
- * */
+
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity // 需要改变成 需要注意的是 类的开头一定要加上  @EnableWebSecurity  否则这里的 http 这个参数报错.
 public class SecurityConfig {
     
     // 这是个密码加密的bean
@@ -110,6 +107,7 @@ public class SecurityConfig {
                         out.flush();
                         out.close();
                     })
+                    .permitAll()
                 .and()
                     .logout()                
 //                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST"))
