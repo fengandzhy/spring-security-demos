@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,6 +83,12 @@ public class HelloController {
     public String postAuthorize(){
         logger.info("In the method. ");
         return "postAuthorize";
+    }
+
+    @GetMapping("/role_allow")
+    @RolesAllowed({"admin"})
+    public String rolesAllow(){        
+        return "rolesAllow";
     }
 
 }
