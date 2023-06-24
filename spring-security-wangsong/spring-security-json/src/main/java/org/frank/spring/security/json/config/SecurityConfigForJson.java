@@ -1,6 +1,7 @@
 package org.frank.spring.security.json.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -36,7 +37,7 @@ public class SecurityConfigForJson extends WebSecurityConfigurerAdapter {
                     .loginProcessingUrl("/doLogin")
                     .usernameParameter("name")
                     .passwordParameter("pwd")
-                    .successHandler((req, resp, authentication) -> {
+                    .successHandler((req, resp, authentication) -> { 
                         Object principal = authentication.getPrincipal();
                         resp.setContentType("application/json;charset=utf-8");
                         PrintWriter out = resp.getWriter();
@@ -50,7 +51,7 @@ public class SecurityConfigForJson extends WebSecurityConfigurerAdapter {
                         out.write(e.getMessage());
                         out.flush();
                         out.close();
-                    })
+                    })                
                     .permitAll()
                 .and()
                     .logout()
@@ -71,7 +72,13 @@ public class SecurityConfigForJson extends WebSecurityConfigurerAdapter {
                     .authenticationEntryPoint((req, resp, authException) -> {
                                 resp.setContentType("application/json;charset=utf-8");
                                 PrintWriter out = resp.getWriter();
-                                out.write("you have not login, please login!");
+                                ObjectMapper mapper = new ObjectMapper();
+                                ObjectNode login = mapper.createObjectNode();
+                                ObjectNode loginStatus = mapper.createObjectNode();
+                                loginStatus.put("status",1);
+                                loginStatus.put("message","you have not login, please login!");
+                                login.set("result",loginStatus);
+                                out.write(mapper.writeValueAsString(login));
                                 out.flush();
                                 out.close();
                             }
