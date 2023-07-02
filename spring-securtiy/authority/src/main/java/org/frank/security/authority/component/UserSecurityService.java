@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
 import java.util.Set;
 
@@ -39,16 +39,54 @@ public class UserSecurityService implements UserDetailsService {
             throw new UsernameNotFoundException("用户名或密码错误");
         }else {
             /**
-             * User第一参数是：用户名
+             *      User第一参数是：用户名
              *     第二个参数是：pssword, 是从数据库查出来的
              *     第三个参数是: 权限
+             *     这里的User是系统自带的, 权限的key 永远都是authorities, 里面的权限的key 一直都是 authority 如下所示
+             *     "authorities": [
+             *         {
+             *             "authority": "ROLE_administration "
+             *         },
+             *         {
+             *             "authority": "ROLE_finance"
+             *         }
+             *     ],
+             *     但是如果要@PreAuthorize hasRole 形式的, 这里的authority 值的前面必须加入ROLE_ 前缀                 
+             *     @PreAuthorize("hasRole('admin') or hasRole('finance')")
+             *     但是如果要@PreAuthorize hasAuthority 形式的, 这里的authority 值的可以随意
+             *     @PreAuthorize("hasAuthority('ROLE_admin')") 和 @PreAuthorize("hasAuthority('user:list')")
+             *     如下所示, 当authority 的值不以 ROLE_开头时, 那就只能写成 @PreAuthorize("hasAuthority('user:list')") @RolesAllowed 和 @Secured 都不能用
+             *     "authorities": [
+             *         {
+             *             "authority": "dept"
+             *         },
+             *         {
+             *             "authority": "dept:delete"
+             *         },
+             *         {
+             *             "authority": "user"
+             *         },
+             *         {
+             *             "authority": "user:add"
+             *         },
+             *         {
+             *             "authority": "user:delete"
+             *         },
+             *         {
+             *             "authority": "user:edit"
+             *         },
+             *         {
+             *             "authority": "user:export"
+             *         }
+             *     ],
+             *     
              */
             User user =  null;
             try{
                 user = new User(username,
                         sysUser.getPassword(),
-//                        getAuthorities(sysUser.getRoles()));
-                        getMethodsAuthorities(sysUser.getPermissions()));
+                        getAuthorities(sysUser.getRoles()));
+//                        getMethodsAuthorities(sysUser.getPermissions()));
             }catch (InternalAuthenticationServiceException exception) {
                 throw exception;  // 在此处，将异常接着往外抛，抛给AuthenticationFailureHandler处理
             }
