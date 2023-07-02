@@ -23,6 +23,9 @@ public class SecurityConfigForSpringData extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();        
     }
 
+    /**
+     * 这个方法似乎有没有都可以, 只要把 UserService 注入就OK 
+     * */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService);
