@@ -101,14 +101,20 @@ public class SecurityConfigForAuthority extends WebSecurityConfigurerAdapter {
                     .invalidateHttpSession(true)
                     .permitAll()
                 .and()
-                    .csrf().disable().exceptionHandling()
+                    .csrf().disable()
+                    .exceptionHandling()
                     .authenticationEntryPoint((req, resp, authException) -> {
-                                resp.setContentType("application/json;charset=utf-8");
-                                PrintWriter out = resp.getWriter();
-                                out.write("you have not login, please login!");
-                                out.flush();
-                                out.close();
-                            }
-                );
+                            resp.setContentType("application/json;charset=utf-8");
+                            PrintWriter out = resp.getWriter();
+                            out.write("you have not login, please login!");
+                            out.flush();
+                            out.close();
+                    }).accessDeniedHandler((req,resp,authentication) ->{
+                        resp.setContentType("application/json;charset=utf-8");
+                        PrintWriter out = resp.getWriter();
+                        out.write("you have no permission to access this.");
+                        out.flush();
+                        out.close();
+                    });
     }
 }
