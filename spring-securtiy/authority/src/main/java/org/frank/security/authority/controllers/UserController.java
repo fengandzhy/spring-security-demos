@@ -33,7 +33,7 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping("/list")
-    //@PreAuthorize("hasAuthority('ROLE_admin')")
+    @PreAuthorize("hasAuthority('ROLE_admin')")
     //@RolesAllowed({"admin", "finance", "administration "})
     // @PreAuthorize("hasRole('admin') or hasRole('finance')")
     // @PreAuthorize("hasRole('admin') and hasRole('finance')")  //表是同时拥有这两个角色才能访问
