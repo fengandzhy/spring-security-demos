@@ -31,7 +31,6 @@ import java.io.PrintWriter;
  * 如果把其中一个设置成false securedEnabled=false， @Secured 将不会起作用， 它并不会报错. 
  * */
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfigForAuthority extends WebSecurityConfigurerAdapter {
 
     private UserSecurityService userSecurityService;

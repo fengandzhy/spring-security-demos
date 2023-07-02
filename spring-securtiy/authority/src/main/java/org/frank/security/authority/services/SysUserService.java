@@ -4,14 +4,16 @@ import org.frank.security.authority.entities.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@Service
 public class SysUserService {
-    @Autowired
+    
     private JdbcTemplate jdbcTemplate;
 
     public SysUser getSysUserByUsernameOrMobile(String usernameOrMobile) throws EmptyResultDataAccessException {
@@ -42,5 +44,9 @@ public class SysUserService {
         }
         return sysUser;
     }
-    
+
+    @Autowired
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 }
