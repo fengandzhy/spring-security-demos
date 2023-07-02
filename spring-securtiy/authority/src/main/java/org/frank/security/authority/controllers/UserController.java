@@ -1,8 +1,11 @@
 package org.frank.security.authority.controllers;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.annotation.security.RolesAllowed;
 
 @RequestMapping("/user")
 @Controller
@@ -22,7 +25,7 @@ public class UserController {
     @RequestMapping
     // @RolesAllowed("admin")
     // @Secured({"ROLE_admin", "ROLE_finance"})
-    // @PreAuthorize("hasAuthority('user:list')")
+    //@PreAuthorize("hasAuthority('user:list')")
     public Object get() {
         return "/index.html";
     }
@@ -30,7 +33,7 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping("/list")
-    // @PreAuthorize("hasRole('ROLE_admin')")
+    //@PreAuthorize("hasAuthority('ROLE_admin')")
     //@RolesAllowed({"admin", "finance", "administration "})
     // @PreAuthorize("hasRole('admin') or hasRole('finance')")
     // @PreAuthorize("hasRole('admin') and hasRole('finance')")  //表是同时拥有这两个角色才能访问
