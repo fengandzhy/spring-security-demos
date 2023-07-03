@@ -89,8 +89,8 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
--- INSERT INTO `sys_user` VALUES (1, 'jack', '$2a$10$GqJuJhe7zmtwwThIed7smu9zMJBgSQzFMP47eEDL.g9tg8Y82.A7m', '13268050688');
--- INSERT INTO `sys_user` VALUES (2, 'rose', '$2a$10$GqJuJhe7zmtwwThIed7smu9zMJBgSQzFMP47eEDL.g9tg8Y82.A7m', '13268050688');
+INSERT INTO `sys_user` VALUES (1, 'jack', '$2a$10$A1vqzfx5z4QpkO4fEvHlP.7KjaiilmNtS4HjzVoCAbg3M0Up81zfK', '13268050688');
+INSERT INTO `sys_user` VALUES (2, 'rose', '$2a$10$5V1J3sJ3MEGa0HmP/YXx5.2IPIefVyh.6NOOnLwkQLDn5frKDFGam', '13268050688');
 COMMIT;
 
 -- ----------------------------
