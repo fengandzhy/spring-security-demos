@@ -42,6 +42,7 @@ public class SecurityConfigForSpringData extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/vc.jpg").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin()
                     .loginPage("/login.html")
