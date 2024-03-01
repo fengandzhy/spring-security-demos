@@ -44,7 +44,7 @@ public class WelcomeController {
 
     @RequestMapping(value="/fail",method={RequestMethod.GET,RequestMethod.POST})    
     public String login(Model model){        
-        model.addAttribute("fail","fail login222");
+        model.addAttribute("fail","fail login");
         return "/login";
     }    
     

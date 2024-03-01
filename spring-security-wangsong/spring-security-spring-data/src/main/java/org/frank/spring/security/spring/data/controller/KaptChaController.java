@@ -14,19 +14,23 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 @RestController
-public class LoginController {
-
-    @Autowired
-    Producer producer;
+public class KaptChaController {
+    
+    private Producer kaptCha;
 
     @GetMapping("/vc.jpg")
     public void getVerifyCode(HttpServletResponse resp, HttpSession session) throws IOException {
         resp.setContentType("image/jpeg");
-        String text = producer.createText();
+        String text = kaptCha.createText();
         session.setAttribute("kaptcha", text);
-        BufferedImage image = producer.createImage(text);
+        BufferedImage image = kaptCha.createImage(text);
         try(ServletOutputStream out = resp.getOutputStream()) {
             ImageIO.write(image, "jpg", out);
         }
-    }    
+    }
+
+    @Autowired
+    public void setKaptCha(Producer kaptCha) {
+        this.kaptCha = kaptCha;
+    }
 }
