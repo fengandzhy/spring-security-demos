@@ -1,5 +1,6 @@
 package org.frank.spring.security.spring.data.config;
 
+import org.frank.spring.security.spring.data.handler.CustomerAuthenticationFailureHandler;
 import org.frank.spring.security.spring.data.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +17,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfigForSpringData extends WebSecurityConfigurerAdapter {
 
     
-    private UserService userService;   
+    private UserService userService; 
+    private CustomerAuthenticationFailureHandler customerAuthenticationFailureHandler;
 
     @Bean
     PasswordEncoder passwordEncoder(){
@@ -42,6 +44,7 @@ public class SecurityConfigForSpringData extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/vc.jpg").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin()
                     .loginPage("/login.html")
@@ -49,7 +52,8 @@ public class SecurityConfigForSpringData extends WebSecurityConfigurerAdapter {
                     .usernameParameter("username")
                     .passwordParameter("password")
                     .defaultSuccessUrl("/welcome")
-                    .failureUrl("/fail")
+//                    .failureUrl("/fail")
+                    .failureHandler(customerAuthenticationFailureHandler)
                     .permitAll()
                 .and().logout()
                     .logoutUrl("/logout")
@@ -66,5 +70,10 @@ public class SecurityConfigForSpringData extends WebSecurityConfigurerAdapter {
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    @Autowired
+    public void setCustomerAuthenticationFailureHandler(CustomerAuthenticationFailureHandler customerAuthenticationFailureHandler) {
+        this.customerAuthenticationFailureHandler = customerAuthenticationFailureHandler;
     }
 }

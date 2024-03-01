@@ -42,6 +42,9 @@ public class SecurityConfigForRememberMe extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/js/**", "/css/**","/images/**");
     }
 
+    /**
+     * 持久化Token存储
+     * */
     @Bean
     public PersistentTokenRepository persistentTokenRepository() {
         JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
@@ -72,7 +75,7 @@ public class SecurityConfigForRememberMe extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .and()
                     .rememberMe()
-                    .key("zhou_hy")
+                    .key("zhou_hy") // 设置用于生成记住我token的密钥
                     .userDetailsService(userService) // 设置userDetailsService
                     .tokenRepository(persistentTokenRepository()) // 设置数据访问层
                     .tokenValiditySeconds(60 * 60) // 记住我的时间(秒)
